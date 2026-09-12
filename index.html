@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BodoVaani</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #171d13;
+    --card: #151a18;
+    --card2: #1b2b23;
+    --line: #3b463e;
+    --text: #e7e2d7;
+    --muted: #aaa99f;
+    --accent: #d68a42;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at 80% 10%, #26342544, transparent 35%),
+        var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
+
+.page {
+    width: min(1180px, calc(100% - 40px));
+    margin: auto;
+}
+
+header {
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.brand-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #203125;
+    display: grid;
+    place-items: center;
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.brand-name {
+    font-family: Georgia, serif;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.brand-sub {
+    color: #898c82;
+    font-size: 10px;
+    letter-spacing: 3px;
+}
+
+.status {
+    border: 1px solid #435047;
+    padding: 8px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #adb7ad;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #7fa66f;
+    margin-right: 7px;
+}
+
+.hero {
+    padding: 65px 0 60px;
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.eyebrow {
+    display: inline-block;
+    background: #1e3025;
+    color: #c2a783;
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+}
+
+h1 {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: clamp(50px, 6vw, 78px);
+    line-height: .95;
+    letter-spacing: -3px;
+    font-weight: 600;
+}
+
+.hero-text {
+    color: var(--muted);
+    max-width: 530px;
+    font-size: 17px;
+    line-height: 1.8;
+    margin-top: 28px;
+}
+
+.start-card {
+    padding: 34px;
+    background: var(--card2);
+    border: 1px solid #293b31;
+    border-radius: 30px;
+}
+
+.start-label,
+.section-label {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+.start-title {
+    font-family: Georgia, serif;
+    font-size: 25px;
+    margin: 9px 0 24px;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.step {
+    min-height: 110px;
+    padding: 16px;
+    border: 1px solid #536157;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.step-number {
+    color: #aaa99f;
+    font-size: 11px;
+}
+
+.step-text {
+    font-size: 14px;
+}
+
+.workspace-title {
+    font-family: Georgia, serif;
+    font-size: 34px;
+    margin: 8px 0 25px;
+}
+
+/* DIRECTION SWITCH */
+
+.direction-switch {
+    display: flex;
+    width: fit-content;
+    padding: 5px;
+    background: #121714;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    margin-bottom: 18px;
+}
+
+.direction-btn {
+    border: none;
+    background: transparent;
+    color: #8f978f;
+    padding: 11px 20px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.direction-btn.active {
+    background: var(--accent);
+    color: #18140f;
+}
+
+/* WORKSPACE */
+
+.workspace {
+    border: 1px solid #414941;
+    border-radius: 30px;
+    overflow: hidden;
+    background: var(--card);
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.column {
+    padding: 30px;
+    min-height: 440px;
+    border-right: 1px solid #303831;
+}
+
+.column:last-child {
+    border-right: none;
+}
+
+.column-label {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 7px;
+}
+
+.column-title {
+    font-family: Georgia, serif;
+    font-size: 23px;
+    margin-bottom: 22px;
+}
+
+/* UPLOAD */
+
+.upload-area {
+    min-height: 235px;
+    padding: 25px 18px;
+    border: 1px dashed #4b564d;
+    border-radius: 20px;
+    background: #192218;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.mic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #213323;
+    font-size: 26px;
+    margin-bottom: 14px;
+}
+
+.upload-heading {
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.upload-info {
+    color: #7f887f;
+    font-size: 11px;
+    margin-bottom: 16px;
+}
+
+input[type=file] {
+    width: 100%;
+    max-width: 270px;
+    padding: 8px;
+    border: 1px solid #475149;
+    border-radius: 9px;
+    background: #151b17;
+    color: #bbbdb5;
+}
+
+.preview {
+    display: none;
+    width: 100%;
+    margin-top: 15px;
+}
+
+audio {
+    width: 100%;
+    height: 38px;
+}
+
+.translate {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #17140f;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.translate:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+/* RESULT */
+
+.result-card {
+    min-height: 270px;
+    padding: 21px;
+    border: 1px solid #3a443d;
+    border-radius: 18px;
+    background: #192119;
+}
+
+.result-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.result-language {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.listen {
+    border: 1px solid #4a554d;
+    background: #202b24;
+    color: #ddd9cf;
+    padding: 7px 11px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.result-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #c1c1ba;
+    word-break: break-word;
+}
+
+/* ENGLISH INPUT */
+
+#englishInput {
+    width: 100%;
+    min-height: 270px;
+    resize: vertical;
+
+    padding: 18px;
+
+    border-radius: 18px;
+    border: 1px solid #3a443d;
+
+    background: #192119;
+    color: var(--text);
+
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.7;
+
+    outline: none;
+}
+
+#englishInput:focus {
+    border-color: #6b765e;
+}
+
+.reverse-result {
+    min-height: 270px;
+}
+
+/* PROCESS */
+
+.process-strip {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 28px;
+    border-top: 1px solid #303831;
+    background: #182119;
+}
+
+.process-item {
+    flex: 1;
+}
+
+.process-item span {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.process-item strong {
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 16px;
+}
+
+.process-item small {
+    color: #7f887f;
+    font-size: 11px;
+}
+
+.process-arrow {
+    color: #667068;
+    font-size: 20px;
+}
+
+.workspace-footer {
+    padding: 15px 28px;
+    border-top: 1px solid #303831;
+    color: #7f887f;
+    font-size: 11px;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    margin-top: 12px;
+    color: #aaa;
+    font-size: 12px;
+}
+
+.footer {
+    padding: 40px 0;
+    text-align: center;
+    color: #70776f;
+    font-size: 12px;
+}
+
+@media(max-width: 950px) {
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .columns {
+        grid-template-columns: 1fr;
+    }
+
+    .column {
+        border-right: none;
+        border-bottom: 1px solid #303831;
+    }
+
+    .column:last-child {
+        border-bottom: none;
+    }
+}
+
+@media(max-width: 600px) {
+    .page {
+        width: calc(100% - 24px);
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    .direction-switch {
+        width: 100%;
+    }
+
+    .direction-btn {
+        flex: 1;
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .process-strip {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .process-arrow {
+        transform: rotate(90deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header>
+
+    <div class="brand">
+        <div class="brand-icon">B</div>
+
+        <div>
+            <div class="brand-name">BodoVaani</div>
+            <div class="brand-sub">LANGUAGE, IN YOUR VOICE</div>
+        </div>
+    </div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+        Prototype Ready
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <div>
+
+        <div class="eyebrow">
+            ✦ BODO-FIRST TRANSLATION
+        </div>
+
+        <h1>
+            Let your<br>
+            Bodo voice<br>
+            travel further.
+        </h1>
+
+        <p class="hero-text">
+            Speak in Bodo or translate English back into Bodo.
+            BodoVaani helps bridge communication while keeping
+            the original language at the centre.
+        </p>
+
+    </div>
+
+
+    <div class="start-card">
+
+        <div class="start-label">
+            YOUR TRANSLATION SPACE
+        </div>
+
+        <div class="start-title">
+            One platform. Two directions.
+        </div>
+
+        <div class="steps">
+
+            <div class="step">
+                <div class="step-number">01 / Input</div>
+                <div class="step-text">Speak or type</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">02 / Understand</div>
+                <div class="step-text">AI processes language</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">03 / Connect</div>
+                <div class="step-text">Translate clearly</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="workspace">
+
+    <div class="section-label">
+        THE WORKSPACE
+    </div>
+
+    <h2 class="workspace-title">
+        One message. Two directions.
+    </h2>
+
+
+    <!-- DIRECTION -->
+
+    <div class="direction-switch">
+
+        <button
+            class="direction-btn active"
+            id="b2eBtn"
+            onclick="setDirection('bodo_to_english')"
+        >
+            Bodo → English
+        </button>
+
+        <button
+            class="direction-btn"
+            id="e2bBtn"
+            onclick="setDirection('english_to_bodo')"
+        >
+            English → Bodo
+        </button>
+
+    </div>
+
+
+    <div class="workspace">
+
+
+        <!-- ================= BODO → ENGLISH ================= -->
+
+        <div id="bodoToEnglish">
+
+            <div class="columns">
+
+                <div class="column">
+
+                    <div class="column-label">
+                        BODO SOURCE
+                    </div>
+
+                    <div class="column-title">
+                        Speak or upload
+                    </div>
+
+                    <div class="upload-area">
+
+                        <div class="mic">🎙️</div>
+
+                        <div class="upload-heading">
+                            Upload a short message
+                        </div>
+
+                        <div class="upload-info">
+                            WAV • MP3 • WebM • M4A
+                        </div>
+
+                        <input
+                            type="file"
+                            id="audioFile"
+                            accept="audio/*"
+                        >
+
+                        <div
+                            class="preview"
+                            id="preview"
+                        >
+                            <audio
+                                id="audioPreview"
+                                controls
+                            ></audio>
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="translate"
+                        id="translateBtn"
+                    >
+                        Translate to English
+                    </button>
+
+                    <div
+                        class="loading"
+                        id="loading"
+                    >
+                        Understanding Bodo speech...
+                    </div>
+
+                </div>
+
+
+                <div class="column">
+
+                    <div class="column-label">
+                        BODO TRANSCRIPT
+                    </div>
+
+                    <div class="column-title">
+                        What we heard
+                    </div>
+
+                    <div class="result-card">
+
+                        <div class="result-top">
+
+                            <div class="result-language">
+                                BODO
+                            </div>
+
+                            <button
+                                class="listen"
+                                id="bodoListen"
+                            >
+                                🔊 Listen
+                            </button>
+
+                        </div>
+
+                        <div
+                            class="result-text"
+                            id="bodoResult"
+                        >
+                            Your Bodo transcription will appear here.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="column">
+
+                    <div class="column-label">
+                        TRANSLATION
+                    </div>
+
+                    <div class="column-title">
+                        Share with clarity
+                    </div>
+
+                    <div class="result-card">
+
+                        <div class="result-top">
+
+                            <div class="result-language">
+                                ENGLISH
+                            </div>
+
+                            <button
+                                class="listen"
+                                id="englishListen"
+                            >
+                                🔊 Listen
+                            </button>
+
+                        </div>
+
+                        <div
+                            class="result-text"
+                            id="englishResult"
+                        >
+                            Your English translation will appear here.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= ENGLISH → BODO ================= -->
+
+        <div
+            id="englishToBodo"
+            style="display:none;"
+        >
+
+            <div class="columns">
+
+                <div class="column">
+
+                    <div class="column-label">
+                        ENGLISH SOURCE
+                    </div>
+
+                    <div class="column-title">
+                        Type your message
+                    </div>
+
+                    <textarea
+                        id="englishInput"
+                        placeholder="Type an English message here..."
+                    ></textarea>
+
+                    <button
+                        class="translate"
+                        id="reverseBtn"
+                    >
+                        Translate to Bodo
+                    </button>
+
+                    <div
+                        class="loading"
+                        id="reverseLoading"
+                    >
+                        Translating English → Bodo...
+                    </div>
+
+                </div>
+
+
+                <div class="column">
+
+                    <div class="column-label">
+                        BODO TRANSLATION
+                    </div>
+
+                    <div class="column-title">
+                        Bodo output
+                    </div>
+
+                    <div class="result-card reverse-result">
+
+                        <div class="result-top">
+
+                            <div class="result-language">
+                                BODO
+                            </div>
+
+                            <button
+                                class="listen"
+                                id="reverseListen"
+                            >
+                                🔊 Listen
+                            </button>
+
+                        </div>
+
+                        <div
+                            class="result-text"
+                            id="reverseResult"
+                        >
+                            Your Bodo translation will appear here.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="column">
+
+                    <div class="column-label">
+                        ABOUT THIS MODE
+                    </div>
+
+                    <div class="column-title">
+                        Connect back
+                    </div>
+
+                    <div class="result-card reverse-result">
+
+                        <div class="result-text">
+
+                            English → Bodo makes BodoVaani
+                            bidirectional.
+
+                            <br><br>
+
+                            Type a short English message,
+                            translate it into Bodo, and review
+                            the result.
+
+                            <br><br>
+
+                            <strong>
+                                Prototype feature
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROCESS -->
+
+        <div class="process-strip">
+
+            <div class="process-item">
+                <span>01</span>
+                <strong>Speak / Type</strong>
+                <small>Give your message</small>
+            </div>
+
+            <div class="process-arrow">→</div>
+
+            <div class="process-item">
+                <span>02</span>
+                <strong>Understand</strong>
+                <small>AI processes the language</small>
+            </div>
+
+            <div class="process-arrow">→</div>
+
+            <div class="process-item">
+                <span>03</span>
+                <strong>Translate</strong>
+                <small>Connect across languages</small>
+            </div>
+
+        </div>
+
+
+        <div class="workspace-footer">
+            🛡️ Prototype processing — language translation
+            for this session.
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="footer">
+    AI-powered Bodo language translation prototype
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   DIRECTION SWITCH
+========================= */
+
+function setDirection(direction) {
+
+    const b2e =
+        document.getElementById("bodoToEnglish");
+
+    const e2b =
+        document.getElementById("englishToBodo");
+
+    const b2eBtn =
+        document.getElementById("b2eBtn");
+
+    const e2bBtn =
+        document.getElementById("e2bBtn");
+
+
+    if (direction === "bodo_to_english") {
+
+        b2e.style.display = "block";
+        e2b.style.display = "none";
+
+        b2eBtn.classList.add("active");
+        e2bBtn.classList.remove("active");
+
+    } else {
+
+        b2e.style.display = "none";
+        e2b.style.display = "block";
+
+        b2eBtn.classList.remove("active");
+        e2bBtn.classList.add("active");
+
+    }
+}
+
+
+/* =========================
+   AUDIO PREVIEW
+========================= */
+
+const fileInput =
+    document.getElementById("audioFile");
+
+const audioPreview =
+    document.getElementById("audioPreview");
+
+const preview =
+    document.getElementById("preview");
+
+
+fileInput.addEventListener(
+    "change",
+    () => {
+
+        const file =
+            fileInput.files[0];
+
+        if (!file) return;
+
+        audioPreview.src =
+            URL.createObjectURL(file);
+
+        preview.style.display =
+            "block";
+    }
+);
+
+
+/* =========================
+   BODO → ENGLISH
+========================= */
+
+document
+.getElementById("translateBtn")
+.addEventListener(
+    "click",
+    async () => {
+
+        const file =
+            fileInput.files[0];
+
+        if (!file) {
+
+            alert(
+                "Please select a Bodo audio file first."
+            );
+
+            return;
+        }
+
+
+        const formData =
+            new FormData();
+
+        formData.append(
+            "file",
+            file
+        );
+
+        formData.append(
+            "direction",
+            "bodo_to_english"
+        );
+
+
+        const btn =
+            document.getElementById(
+                "translateBtn"
+            );
+
+        const loading =
+            document.getElementById(
+                "loading"
+            );
+
+
+        btn.disabled = true;
+
+        btn.textContent =
+            "Translating...";
+
+        loading.style.display =
+            "block";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/transcribe",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Translation failed"
+                );
+            }
+
+
+            document
+                .getElementById(
+                    "bodoResult"
+                )
+                .textContent =
+                data.bodo ||
+                "No Bodo transcription received.";
+
+
+            document
+                .getElementById(
+                    "englishResult"
+                )
+                .textContent =
+                data.english ||
+                "No English translation received.";
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Translation failed. Check the server."
+            );
+
+        }
+
+        finally {
+
+            btn.disabled = false;
+
+            btn.textContent =
+                "Translate to English";
+
+            loading.style.display =
+                "none";
+        }
+
+    }
+);
+
+
+/* =========================
+   BODO AUDIO LISTEN
+========================= */
+
+document
+.getElementById("bodoListen")
+.addEventListener(
+    "click",
+    () => {
+
+        if (!audioPreview.src) {
+
+            alert(
+                "Upload a Bodo audio file first."
+            );
+
+            return;
+        }
+
+        if (audioPreview.paused) {
+
+            audioPreview.play();
+
+            document
+                .getElementById(
+                    "bodoListen"
+                )
+                .textContent =
+                "⏸ Pause";
+
+        } else {
+
+            audioPreview.pause();
+
+            document
+                .getElementById(
+                    "bodoListen"
+                )
+                .textContent =
+                "🔊 Listen";
+        }
+
+    }
+);
+
+
+audioPreview.addEventListener(
+    "ended",
+    () => {
+
+        document
+            .getElementById(
+                "bodoListen"
+            )
+            .textContent =
+            "🔊 Listen";
+
+    }
+);
+
+
+/* =========================
+   ENGLISH SPEECH
+========================= */
+
+document
+.getElementById("englishListen")
+.addEventListener(
+    "click",
+    () => {
+
+        const text =
+            document
+                .getElementById(
+                    "englishResult"
+                )
+                .textContent.trim();
+
+
+        if (
+            !text ||
+            text.includes(
+                "Your English translation"
+            )
+        ) {
+
+            alert(
+                "Translate the audio first."
+            );
+
+            return;
+        }
+
+
+        speechSynthesis.cancel();
+
+
+        const speech =
+            new SpeechSynthesisUtterance(
+                text
+            );
+
+
+        speech.lang = "en-IN";
+        speech.rate = 0.85;
+
+
+        const voices =
+            speechSynthesis.getVoices();
+
+
+        const voice =
+            voices.find(
+                v =>
+                    v.lang &&
+                    v.lang
+                        .toLowerCase()
+                        .startsWith("en-in")
+            );
+
+
+        if (voice) {
+            speech.voice = voice;
+        }
+
+
+        speech.onstart = () => {
+
+            document
+                .getElementById(
+                    "englishListen"
+                )
+                .textContent =
+                "🔊 Speaking...";
+
+        };
+
+
+        speech.onend = () => {
+
+            document
+                .getElementById(
+                    "englishListen"
+                )
+                .textContent =
+                "🔊 Listen";
+
+        };
+
+
+        speechSynthesis.speak(
+            speech
+        );
+
+    }
+);
+
+
+/* =========================
+   ENGLISH → BODO
+========================= */
+
+document
+.getElementById("reverseBtn")
+.addEventListener(
+    "click",
+    async () => {
+
+        const text =
+            document
+                .getElementById(
+                    "englishInput"
+                )
+                .value.trim();
+
+
+        if (!text) {
+
+            alert(
+                "Please enter an English message."
+            );
+
+            return;
+        }
+
+
+        const formData =
+            new FormData();
+
+        formData.append(
+            "text",
+            text
+        );
+
+        formData.append(
+            "direction",
+            "english_to_bodo"
+        );
+
+
+        const btn =
+            document.getElementById(
+                "reverseBtn"
+            );
+
+        const loading =
+            document.getElementById(
+                "reverseLoading"
+            );
+
+
+        btn.disabled = true;
+
+        btn.textContent =
+            "Translating...";
+
+        loading.style.display =
+            "block";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/translate",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Translation failed"
+                );
+            }
+
+
+            document
+                .getElementById(
+                    "reverseResult"
+                )
+                .textContent =
+                data.bodo ||
+                "No Bodo translation received.";
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Reverse translation failed."
+            );
+
+        }
+
+        finally {
+
+            btn.disabled = false;
+
+            btn.textContent =
+                "Translate to Bodo";
+
+            loading.style.display =
+                "none";
+        }
+
+    }
+);
+
+
+/* =========================
+   BODO TEXT LISTEN
+========================= */
+
+document
+.getElementById("reverseListen")
+.addEventListener(
+    "click",
+    () => {
+
+        const text =
+            document
+                .getElementById(
+                    "reverseResult"
+                )
+                .textContent.trim();
+
+
+        if (
+            !text ||
+            text.includes(
+                "Your Bodo translation"
+            )
+        ) {
+
+            alert(
+                "Translate an English message first."
+            );
+
+            return;
+        }
+
+
+        /*
+         * Browser voices usually don't contain
+         * a proper Bodo voice.
+         *
+         * We therefore don't force an English
+         * voice to pronounce Bodo incorrectly.
+         */
+
+        alert(
+            "Bodo text is ready. Native Bodo voice output can be added with the Bodo TTS model."
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
