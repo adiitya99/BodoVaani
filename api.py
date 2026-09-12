@@ -3,7 +3,7 @@ from fastapi.responses import FileResponse
 import shutil
 import os
 
-from app.bodo_vaani import BodoVaani
+from bodo_vaani import BodoVaani
 
 
 app = FastAPI(
